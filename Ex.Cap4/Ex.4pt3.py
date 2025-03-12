@@ -1,19 +1,35 @@
 import numpy as np
 # carregando  o dataset space.csv
 dataset = np.loadtxt('space.csv', delimiter=';', dtype=str, encoding='utf-8')
-
-
-# Verifique o número de colunas e as primeiras linhas do dataset para localizar a coluna de sucesso
-print(dataset[:5])  # Mostra as primeiras 5 linhas para verificar o formato
-
-# Suponhamos que a última coluna tenha a informação sobre o sucesso da missão.
-# Caso a coluna de sucesso seja diferente, altere o índice para a coluna correta.
-
+#a
 # Contar quantas missões foram bem-sucedidas
 success_count = np.sum(dataset[:, -1] == 'Success')
 
-# Calcular o total de missões
+
 total_missions = len(dataset)
 
 # Calcular a porcentagem de missões que deram certo
 success_percentage = (success_count / total_missions) * 100
+
+#b
+#media das gastos nas missoes 
+
+custs_missons= np.mean(dataset[:,-2].astype(float))
+
+
+#c 
+# calcular quantidade de missoes realizadas pelos EUA
+usa_missions = np.sum(dataset[:, 0] == 'USA')
+
+#d
+
+# Encontrar missão mais cara realizada pela SpaceX
+spacex_missions = dataset[dataset[:, 1] == 'SpaceX']
+most_expensive = np.max(spacex_missions[:, -2].astype(float))
+
+#e
+
+# Mostrando o nome das empresas que já realizaram missões espaciais,juntamente com suas respectivas quantidades de missões
+empresas = np.unique(dataset[:, 1], return_counts=True)
+for empresa, count in zip(empresas[0], empresas[1]):
+    print(f'Empresa: {empresa}, Quantidade de missões: {count}')
